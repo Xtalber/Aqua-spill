@@ -1,0 +1,912 @@
+/**
+ * Supabase Database TypeScript Definitions for SpillScan
+ */
+
+export type Json =
+  | string
+  | number
+  | boolean
+  | null
+  | { [key: string]: Json | undefined }
+  | Json[];
+
+export interface Database {
+  public: {
+    Tables: {
+      projects: {
+        Row: {
+          id: string;
+          user_id: string | null;
+          name: string;
+          description: string | null;
+          status: 'ACTIVE' | 'ARCHIVED' | 'INVESTIGATING';
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          user_id?: string | null;
+          name: string;
+          description?: string | null;
+          status?: 'ACTIVE' | 'ARCHIVED' | 'INVESTIGATING';
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          user_id?: string | null;
+          name?: string;
+          description?: string | null;
+          status?: 'ACTIVE' | 'ARCHIVED' | 'INVESTIGATING';
+          created_at?: string;
+          updated_at?: string;
+        };
+      };
+      datasets: {
+        Row: {
+          id: string;
+          project_id: string | null;
+          user_id: string | null;
+          name: string;
+          original_filename: string | null;
+          storage_path: string | null;
+          file_type: string | null;
+          file_size: number | null;
+          status: 'UPLOADING' | 'EXTRACTING' | 'INDEXING' | 'READY' | 'FAILED';
+          total_files: number;
+          sar_files: number;
+          ais_files: number;
+          metadata_files: number;
+          geo_files: number;
+          weather_files: number;
+          ocean_files: number;
+          geographic_bounds: Json | null;
+          time_range: Json | null;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          project_id?: string | null;
+          user_id?: string | null;
+          name: string;
+          original_filename?: string | null;
+          storage_path?: string | null;
+          file_type?: string | null;
+          file_size?: number | null;
+          status?: 'UPLOADING' | 'EXTRACTING' | 'INDEXING' | 'READY' | 'FAILED';
+          total_files?: number;
+          sar_files?: number;
+          ais_files?: number;
+          metadata_files?: number;
+          geo_files?: number;
+          weather_files?: number;
+          ocean_files?: number;
+          geographic_bounds?: Json | null;
+          time_range?: Json | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          project_id?: string | null;
+          user_id?: string | null;
+          name?: string;
+          original_filename?: string | null;
+          storage_path?: string | null;
+          file_type?: string | null;
+          file_size?: number | null;
+          status?: 'UPLOADING' | 'EXTRACTING' | 'INDEXING' | 'READY' | 'FAILED';
+          total_files?: number;
+          sar_files?: number;
+          ais_files?: number;
+          metadata_files?: number;
+          geo_files?: number;
+          weather_files?: number;
+          ocean_files?: number;
+          geographic_bounds?: Json | null;
+          time_range?: Json | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+      };
+      dataset_files: {
+        Row: {
+          id: string;
+          dataset_id: string;
+          filename: string;
+          relative_path: string;
+          file_type: string;
+          mime_type: string | null;
+          file_size: number | null;
+          storage_path: string | null;
+          category: 'sar' | 'ais' | 'metadata' | 'geo' | 'weather' | 'ocean' | 'other';
+          metadata: Json | null;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          dataset_id: string;
+          filename: string;
+          relative_path: string;
+          file_type: string;
+          mime_type?: string | null;
+          file_size?: number | null;
+          storage_path?: string | null;
+          category?: 'sar' | 'ais' | 'metadata' | 'geo' | 'weather' | 'ocean' | 'other';
+          metadata?: Json | null;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          dataset_id?: string;
+          filename?: string;
+          relative_path?: string;
+          file_type?: string;
+          mime_type?: string | null;
+          file_size?: number | null;
+          storage_path?: string | null;
+          category?: 'sar' | 'ais' | 'metadata' | 'geo' | 'weather' | 'ocean' | 'other';
+          metadata?: Json | null;
+          created_at?: string;
+        };
+      };
+      sar_images: {
+        Row: {
+          id: string;
+          dataset_id: string | null;
+          filename: string;
+          storage_path: string | null;
+          satellite: string | null;
+          scene_id: string | null;
+          acquisition_time: string | null;
+          width: number | null;
+          height: number | null;
+          crs: string | null;
+          bounds: Json | null;
+          metadata: Json | null;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          dataset_id?: string | null;
+          filename: string;
+          storage_path?: string | null;
+          satellite?: string | null;
+          scene_id?: string | null;
+          acquisition_time?: string | null;
+          width?: number | null;
+          height?: number | null;
+          crs?: string | null;
+          bounds?: Json | null;
+          metadata?: Json | null;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          dataset_id?: string | null;
+          filename?: string;
+          storage_path?: string | null;
+          satellite?: string | null;
+          scene_id?: string | null;
+          acquisition_time?: string | null;
+          width?: number | null;
+          height?: number | null;
+          crs?: string | null;
+          bounds?: Json | null;
+          metadata?: Json | null;
+          created_at?: string;
+        };
+      };
+      analyses: {
+        Row: {
+          id: string;
+          project_id: string | null;
+          dataset_id: string | null;
+          sar_image_id: string | null;
+          title: string;
+          location_name: string | null;
+          status: 'PENDING' | 'PROCESSING' | 'COMPLETED' | 'FAILED';
+          progress: number;
+          started_at: string | null;
+          completed_at: string | null;
+          error_message: string | null;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          project_id?: string | null;
+          dataset_id?: string | null;
+          sar_image_id?: string | null;
+          title?: string;
+          location_name?: string | null;
+          status?: 'PENDING' | 'PROCESSING' | 'COMPLETED' | 'FAILED';
+          progress?: number;
+          started_at?: string | null;
+          completed_at?: string | null;
+          error_message?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          project_id?: string | null;
+          dataset_id?: string | null;
+          sar_image_id?: string | null;
+          title?: string;
+          location_name?: string | null;
+          status?: 'PENDING' | 'PROCESSING' | 'COMPLETED' | 'FAILED';
+          progress?: number;
+          started_at?: string | null;
+          completed_at?: string | null;
+          error_message?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+      };
+      spill_detections: {
+        Row: {
+          id: string;
+          analysis_id: string;
+          geometry: Json;
+          centroid_lat: number | null;
+          centroid_lon: number | null;
+          area_km2: number;
+          perimeter_km: number;
+          length_km: number | null;
+          width_km: number | null;
+          confidence: number;
+          confidence_level: 'HIGH' | 'MEDIUM' | 'LOW' | null;
+          segmentation_method: string | null;
+          bounding_box: Json | null;
+          pixel_count: number | null;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          analysis_id: string;
+          geometry: Json;
+          centroid_lat?: number | null;
+          centroid_lon?: number | null;
+          area_km2: number;
+          perimeter_km: number;
+          length_km?: number | null;
+          width_km?: number | null;
+          confidence: number;
+          confidence_level?: 'HIGH' | 'MEDIUM' | 'LOW' | null;
+          segmentation_method?: string | null;
+          bounding_box?: Json | null;
+          pixel_count?: number | null;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          analysis_id?: string;
+          geometry?: Json;
+          centroid_lat?: number | null;
+          centroid_lon?: number | null;
+          area_km2?: number;
+          perimeter_km?: number;
+          length_km?: number | null;
+          width_km?: number | null;
+          confidence?: number;
+          confidence_level?: 'HIGH' | 'MEDIUM' | 'LOW' | null;
+          segmentation_method?: string | null;
+          bounding_box?: Json | null;
+          pixel_count?: number | null;
+          created_at?: string;
+        };
+      };
+      spill_metrics: {
+        Row: {
+          id: string;
+          analysis_id: string;
+          evaporation_percent: number | null;
+          emulsification_percent: number | null;
+          estimated_age_hours: number | null;
+          backscatter_deficit_db: number | null;
+          weathering_model: string | null;
+          metrics: Json | null;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          analysis_id: string;
+          evaporation_percent?: number | null;
+          emulsification_percent?: number | null;
+          estimated_age_hours?: number | null;
+          backscatter_deficit_db?: number | null;
+          weathering_model?: string | null;
+          metrics?: Json | null;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          analysis_id?: string;
+          evaporation_percent?: number | null;
+          emulsification_percent?: number | null;
+          estimated_age_hours?: number | null;
+          backscatter_deficit_db?: number | null;
+          weathering_model?: string | null;
+          metrics?: Json | null;
+          created_at?: string;
+        };
+      };
+      drift_tracks: {
+        Row: {
+          id: string;
+          analysis_id: string;
+          track_type: 'observed' | 'hindcast' | 'forecast';
+          geometry: Json;
+          start_time: string | null;
+          end_time: string | null;
+          origin_lat: number | null;
+          origin_lon: number | null;
+          uncertainty_geometry: Json | null;
+          uncertainty_radius_km: number | null;
+          model_name: string | null;
+          model_parameters: Json | null;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          analysis_id: string;
+          track_type: 'observed' | 'hindcast' | 'forecast';
+          geometry: Json;
+          start_time?: string | null;
+          end_time?: string | null;
+          origin_lat?: number | null;
+          origin_lon?: number | null;
+          uncertainty_geometry?: Json | null;
+          uncertainty_radius_km?: number | null;
+          model_name?: string | null;
+          model_parameters?: Json | null;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          analysis_id?: string;
+          track_type?: 'observed' | 'hindcast' | 'forecast';
+          geometry?: Json;
+          start_time?: string | null;
+          end_time?: string | null;
+          origin_lat?: number | null;
+          origin_lon?: number | null;
+          uncertainty_geometry?: Json | null;
+          uncertainty_radius_km?: number | null;
+          model_name?: string | null;
+          model_parameters?: Json | null;
+          created_at?: string;
+        };
+      };
+      environmental_data: {
+        Row: {
+          id: string;
+          dataset_id: string | null;
+          timestamp: string;
+          latitude: number;
+          longitude: number;
+          wind_speed: number | null;
+          wind_direction: number | null;
+          current_speed: number | null;
+          current_direction: number | null;
+          wave_height: number | null;
+          sea_temperature: number | null;
+          source: string | null;
+          raw_data: Json | null;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          dataset_id?: string | null;
+          timestamp: string;
+          latitude: number;
+          longitude: number;
+          wind_speed?: number | null;
+          wind_direction?: number | null;
+          current_speed?: number | null;
+          current_direction?: number | null;
+          wave_height?: number | null;
+          sea_temperature?: number | null;
+          source?: string | null;
+          raw_data?: Json | null;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          dataset_id?: string | null;
+          timestamp?: string;
+          latitude?: number;
+          longitude?: number;
+          wind_speed?: number | null;
+          wind_direction?: number | null;
+          current_speed?: number | null;
+          current_direction?: number | null;
+          wave_height?: number | null;
+          sea_temperature?: number | null;
+          source?: string | null;
+          raw_data?: Json | null;
+          created_at?: string;
+        };
+      };
+      ais_vessels: {
+        Row: {
+          id: string;
+          dataset_id: string | null;
+          mmsi: string;
+          imo: string | null;
+          vessel_name: string;
+          vessel_type: string | null;
+          flag: string | null;
+          flag_code: string | null;
+          callsign: string | null;
+          length_m: number | null;
+          beam_m: number | null;
+          draught_m: number | null;
+          destination: string | null;
+          eta: string | null;
+          data_quality: Json | null;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          dataset_id?: string | null;
+          mmsi: string;
+          imo?: string | null;
+          vessel_name: string;
+          vessel_type?: string | null;
+          flag?: string | null;
+          flag_code?: string | null;
+          callsign?: string | null;
+          length_m?: number | null;
+          beam_m?: number | null;
+          draught_m?: number | null;
+          destination?: string | null;
+          eta?: string | null;
+          data_quality?: Json | null;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          dataset_id?: string | null;
+          mmsi?: string;
+          imo?: string | null;
+          vessel_name?: string;
+          vessel_type?: string | null;
+          flag?: string | null;
+          flag_code?: string | null;
+          callsign?: string | null;
+          length_m?: number | null;
+          beam_m?: number | null;
+          draught_m?: number | null;
+          destination?: string | null;
+          eta?: string | null;
+          data_quality?: Json | null;
+          created_at?: string;
+        };
+      };
+      ais_positions: {
+        Row: {
+          id: string;
+          dataset_id: string | null;
+          vessel_id: string | null;
+          mmsi: string;
+          timestamp: string;
+          latitude: number;
+          longitude: number;
+          speed: number | null;
+          course: number | null;
+          heading: number | null;
+          draught: number | null;
+          navigation_status: string | null;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          dataset_id?: string | null;
+          vessel_id?: string | null;
+          mmsi: string;
+          timestamp: string;
+          latitude: number;
+          longitude: number;
+          speed?: number | null;
+          course?: number | null;
+          heading?: number | null;
+          draught?: number | null;
+          navigation_status?: string | null;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          dataset_id?: string | null;
+          vessel_id?: string | null;
+          mmsi?: string;
+          timestamp?: string;
+          latitude?: number;
+          longitude?: number;
+          speed?: number | null;
+          course?: number | null;
+          heading?: number | null;
+          draught?: number | null;
+          navigation_status?: string | null;
+          created_at?: string;
+        };
+      };
+      vessel_tracks: {
+        Row: {
+          id: string;
+          analysis_id: string | null;
+          vessel_id: string | null;
+          mmsi: string;
+          geometry: Json;
+          start_time: string | null;
+          end_time: string | null;
+          total_points: number;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          analysis_id?: string | null;
+          vessel_id?: string | null;
+          mmsi: string;
+          geometry: Json;
+          start_time?: string | null;
+          end_time?: string | null;
+          total_points?: number;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          analysis_id?: string | null;
+          vessel_id?: string | null;
+          mmsi?: string;
+          geometry?: Json;
+          start_time?: string | null;
+          end_time?: string | null;
+          total_points?: number;
+          created_at?: string;
+        };
+      };
+      vessel_candidates: {
+        Row: {
+          id: string;
+          analysis_id: string;
+          vessel_id: string | null;
+          mmsi: string;
+          vessel_name: string;
+          rank: number;
+          category: 'PRIMARY SOURCE CANDIDATE' | 'SOURCE CANDIDATE' | 'LOW PROBABILITY' | 'EXCLUDED';
+          attribution_score: number;
+          proximity_score: number | null;
+          temporal_score: number | null;
+          trajectory_score: number | null;
+          course_score: number | null;
+          speed_score: number | null;
+          corridor_score: number | null;
+          ais_quality_score: number | null;
+          minimum_distance_km: number | null;
+          time_difference_minutes: number | null;
+          trajectory_alignment: number | null;
+          cpa_position: Json | null;
+          reasoning: Json | null;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          analysis_id: string;
+          vessel_id?: string | null;
+          mmsi: string;
+          vessel_name: string;
+          rank?: number;
+          category?: 'PRIMARY SOURCE CANDIDATE' | 'SOURCE CANDIDATE' | 'LOW PROBABILITY' | 'EXCLUDED';
+          attribution_score: number;
+          proximity_score?: number | null;
+          temporal_score?: number | null;
+          trajectory_score?: number | null;
+          course_score?: number | null;
+          speed_score?: number | null;
+          corridor_score?: number | null;
+          ais_quality_score?: number | null;
+          minimum_distance_km?: number | null;
+          time_difference_minutes?: number | null;
+          trajectory_alignment?: number | null;
+          cpa_position?: Json | null;
+          reasoning?: Json | null;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          analysis_id?: string;
+          vessel_id?: string | null;
+          mmsi?: string;
+          vessel_name?: string;
+          rank?: number;
+          category?: 'PRIMARY SOURCE CANDIDATE' | 'SOURCE CANDIDATE' | 'LOW PROBABILITY' | 'EXCLUDED';
+          attribution_score?: number;
+          proximity_score?: number | null;
+          temporal_score?: number | null;
+          trajectory_score?: number | null;
+          course_score?: number | null;
+          speed_score?: number | null;
+          corridor_score?: number | null;
+          ais_quality_score?: number | null;
+          minimum_distance_km?: number | null;
+          time_difference_minutes?: number | null;
+          trajectory_alignment?: number | null;
+          cpa_position?: Json | null;
+          reasoning?: Json | null;
+          created_at?: string;
+        };
+      };
+      analysis_events: {
+        Row: {
+          id: string;
+          analysis_id: string;
+          stage: string;
+          progress: number;
+          message: string;
+          payload: Json | null;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          analysis_id: string;
+          stage: string;
+          progress: number;
+          message: string;
+          payload?: Json | null;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          analysis_id?: string;
+          stage?: string;
+          progress?: number;
+          message?: string;
+          payload?: Json | null;
+          created_at?: string;
+        };
+      };
+      reports: {
+        Row: {
+          id: string;
+          analysis_id: string;
+          report_type: string;
+          title: string;
+          content: Json;
+          pdf_storage_path: string | null;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          analysis_id: string;
+          report_type?: string;
+          title: string;
+          content: Json;
+          pdf_storage_path?: string | null;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          analysis_id?: string;
+          report_type?: string;
+          title?: string;
+          content?: Json;
+          pdf_storage_path?: string | null;
+          created_at?: string;
+        };
+      };
+      dataset_imports: {
+        Row: {
+          id: string;
+          dataset_id: string | null;
+          dataset_name: string;
+          original_filename: string;
+          file_size: number;
+          storage_path: string | null;
+          storage_provider: string;
+          status: string;
+          stage: string;
+          progress: number;
+          total_images: number;
+          oil_spill_images: number;
+          clean_images: number;
+          total_oil_objects: number;
+          error_message: string | null;
+          geographic_bounds: Json | null;
+          metadata: Json;
+          imported_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          dataset_id?: string | null;
+          dataset_name: string;
+          original_filename: string;
+          file_size?: number;
+          storage_path?: string | null;
+          storage_provider?: string;
+          status?: string;
+          stage?: string;
+          progress?: number;
+          total_images?: number;
+          oil_spill_images?: number;
+          clean_images?: number;
+          total_oil_objects?: number;
+          error_message?: string | null;
+          geographic_bounds?: Json | null;
+          metadata?: Json;
+          imported_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          dataset_id?: string | null;
+          dataset_name?: string;
+          original_filename?: string;
+          file_size?: number;
+          storage_path?: string | null;
+          storage_provider?: string;
+          status?: string;
+          stage?: string;
+          progress?: number;
+          total_images?: number;
+          oil_spill_images?: number;
+          clean_images?: number;
+          total_oil_objects?: number;
+          error_message?: string | null;
+          geographic_bounds?: Json | null;
+          metadata?: Json;
+          imported_at?: string;
+          updated_at?: string;
+        };
+      };
+      dataset_images: {
+        Row: {
+          id: string;
+          import_id: string | null;
+          dataset_id: string | null;
+          file_name: string;
+          normalized_filename: string;
+          relative_path: string;
+          patch_id: string;
+          sentinel_patch_name: string | null;
+          sentinel_product_id: string | null;
+          satellite: string;
+          acquisition_mode: string;
+          polarization: string;
+          orbit_number: number | null;
+          data_take_id: string | null;
+          acquisition_start_time: string;
+          acquisition_end_time: string | null;
+          width: number;
+          height: number;
+          center_lat: number;
+          center_lng: number;
+          corners: Json | null;
+          geo_polygon: Json | null;
+          oil_present: boolean;
+          object_count: number;
+          storage_path: string | null;
+          thumbnail_url: string | null;
+          metadata: Json;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          import_id?: string | null;
+          dataset_id?: string | null;
+          file_name: string;
+          normalized_filename: string;
+          relative_path: string;
+          patch_id: string;
+          sentinel_patch_name?: string | null;
+          sentinel_product_id?: string | null;
+          satellite?: string;
+          acquisition_mode?: string;
+          polarization?: string;
+          orbit_number?: number | null;
+          data_take_id?: string | null;
+          acquisition_start_time: string;
+          acquisition_end_time?: string | null;
+          width?: number;
+          height?: number;
+          center_lat: number;
+          center_lng: number;
+          corners?: Json | null;
+          geo_polygon?: Json | null;
+          oil_present?: boolean;
+          object_count?: number;
+          storage_path?: string | null;
+          thumbnail_url?: string | null;
+          metadata?: Json;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          import_id?: string | null;
+          dataset_id?: string | null;
+          file_name?: string;
+          normalized_filename?: string;
+          relative_path?: string;
+          patch_id?: string;
+          sentinel_patch_name?: string | null;
+          sentinel_product_id?: string | null;
+          satellite?: string;
+          acquisition_mode?: string;
+          polarization?: string;
+          orbit_number?: number | null;
+          data_take_id?: string | null;
+          acquisition_start_time?: string;
+          acquisition_end_time?: string | null;
+          width?: number;
+          height?: number;
+          center_lat?: number;
+          center_lng?: number;
+          corners?: Json | null;
+          geo_polygon?: Json | null;
+          oil_present?: boolean;
+          object_count?: number;
+          storage_path?: string | null;
+          thumbnail_url?: string | null;
+          metadata?: Json;
+          created_at?: string;
+        };
+      };
+      oil_objects: {
+        Row: {
+          id: string;
+          image_id: string;
+          object_index: number;
+          pixel_bbox: Json | null;
+          geo_coordinates: Json | null;
+          geo_polygon: Json | null;
+          area_km2: number;
+          pixel_count: number | null;
+          confidence: number;
+          label: string;
+          metadata: Json;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          image_id: string;
+          object_index?: number;
+          pixel_bbox?: Json | null;
+          geo_coordinates?: Json | null;
+          geo_polygon?: Json | null;
+          area_km2?: number;
+          pixel_count?: number | null;
+          confidence?: number;
+          label?: string;
+          metadata?: Json;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          image_id?: string;
+          object_index?: number;
+          pixel_bbox?: Json | null;
+          geo_coordinates?: Json | null;
+          geo_polygon?: Json | null;
+          area_km2?: number;
+          pixel_count?: number | null;
+          confidence?: number;
+          label?: string;
+          metadata?: Json;
+          created_at?: string;
+        };
+      };
+    };
+    Views: {
+      [_ in never]: never;
+    };
+    Functions: {
+      [_ in never]: never;
+    };
+    Enums: {
+      [_ in never]: never;
+    };
+  };
+}

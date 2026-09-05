@@ -1,0 +1,6 @@
+{
+  "name": "Aqua Spill",
+  "description": "Satellite Oil Spill Detection, Reverse Drift Hydrodynamics & AIS Forensic Vessel Attribution Platform",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
